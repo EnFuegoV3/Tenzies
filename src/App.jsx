@@ -52,8 +52,7 @@ function App() {
   }
 
   function rollDice(){
-    const allHeld = dice.every(die => die.isHeld)
-    if(allHeld) {
+    if(tenzies) {
       setTenzies(false)
       return setDice(allNewDice())
     } else {
