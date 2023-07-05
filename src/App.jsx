@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './index.css'
 import { Die } from './components/Die'
 import { nanoid } from 'nanoid';
-
+import { ConfettiElement } from './components/ConfettiElement';
 
 function App() {
 
@@ -54,12 +54,15 @@ function App() {
   function rollDice(){
     const allHeld = dice.every(die => die.isHeld)
     if(allHeld) {
+      setTenzies(false)
       return setDice(allNewDice())
     } else {
     setDice(prevDice => prevDice.map(die => {
       return !die.isHeld ? generateNewDie() : die
     }))}
   }  
+
+  
 
   const diceElements = dice.map((die) => <Die 
                                             key={die.id} 
@@ -72,12 +75,13 @@ function App() {
   
   return (
     <main>
+      {tenzies && <ConfettiElement />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
       <div className='die-container'>
         {diceElements}
       </div>
-      <button className='roll-dice' onClick={rollDice}>{tenzies ? "Reset" : "Roll"}</button>
+      <button className='roll-dice' onClick={rollDice}>{tenzies ? "New Game" : "Roll"}</button>
     </main>
   )
 }
